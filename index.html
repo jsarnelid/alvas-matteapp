@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Alvas Matteapp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen">
+        <h1>Hej Alva!</h1>
+        <p class="subtitle">Vad vill du öva på idag?</p>
+        <div class="level-buttons">
+            <button class="level-btn" data-level="1">
+                <span class="level-number">Nivå 1</span>
+                <span class="level-desc">Lätt addition</span>
+            </button>
+            <button class="level-btn" data-level="2">
+                <span class="level-number">Nivå 2</span>
+                <span class="level-desc">Större tal</span>
+            </button>
+            <button class="level-btn" data-level="3">
+                <span class="level-number">Nivå 3</span>
+                <span class="level-desc">Subtraktion</span>
+            </button>
+            <button class="level-btn" data-level="4">
+                <span class="level-number">Nivå 4</span>
+                <span class="level-desc">Blandad</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+        <button id="home-btn" class="home-btn">Hem</button>
+
+        <div class="game-left">
+            <div class="game-header">
+                <span id="problem-counter">Uppgift 1 av 10</span>
+                <div id="stars-display"></div>
+            </div>
+
+            <div class="problem-area">
+                <div id="problem-display" class="problem">
+                    <span id="num-a">5</span>
+                    <span id="operator">+</span>
+                    <span id="num-b">3</span>
+                    <span class="equals">=</span>
+                    <input type="text" id="answer-input" inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="buttons-row">
+                <button id="submit-btn" class="submit-btn">Svara</button>
+                <button id="hint-btn" class="hint-btn">Ledtråd</button>
+            </div>
+        </div>
+
+        <div id="hint-area" class="hint-area hidden"></div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen hidden">
+        <h2>Bra jobbat!</h2>
+        <div id="final-stars" class="final-stars"></div>
+        <div id="star-summary" class="star-summary"></div>
+        <div class="result-buttons">
+            <button id="play-again-btn" class="action-btn">Spela igen</button>
+            <button id="choose-level-btn" class="action-btn secondary">Välj nivå</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
