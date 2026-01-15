@@ -30,6 +30,14 @@
                 <span class="level-number">Nivå 4</span>
                 <span class="level-desc">Blandad</span>
             </button>
+            <button class="level-btn" data-level="5">
+                <span class="level-number">Nivå 5</span>
+                <span class="level-desc">Multiplikation</span>
+            </button>
+            <button class="level-btn" data-level="6">
+                <span class="level-number">Nivå 6</span>
+                <span class="level-desc">Större addition</span>
+            </button>
         </div>
     </div>
 
@@ -64,7 +72,52 @@
 
     <!-- Results Screen -->
     <div id="results-screen" class="screen hidden">
-        <h2>Bra jobbat!</h2>
+        <div id="unicorn-surprise" class="unicorn-surprise hidden">
+            <svg viewBox="0 0 200 200" class="unicorn-svg">
+                <!-- Body -->
+                <ellipse cx="100" cy="130" rx="50" ry="35" fill="#FDFCFB"/>
+                <!-- Back leg -->
+                <rect x="65" y="150" width="12" height="35" rx="6" fill="#FDFCFB"/>
+                <ellipse cx="71" cy="185" rx="8" ry="5" fill="#E8D5E0"/>
+                <!-- Front leg -->
+                <rect x="115" y="150" width="12" height="35" rx="6" fill="#FDFCFB"/>
+                <ellipse cx="121" cy="185" rx="8" ry="5" fill="#E8D5E0"/>
+                <!-- Neck -->
+                <ellipse cx="140" cy="110" rx="20" ry="30" fill="#FDFCFB"/>
+                <!-- Head -->
+                <ellipse cx="155" cy="75" rx="25" ry="22" fill="#FDFCFB"/>
+                <!-- Snout -->
+                <ellipse cx="175" cy="82" rx="12" ry="10" fill="#FDF9F7"/>
+                <!-- Eye -->
+                <ellipse cx="160" cy="70" rx="5" ry="6" fill="#2D1B33"/>
+                <ellipse cx="158" cy="68" rx="2" ry="2" fill="white"/>
+                <!-- Nostril -->
+                <circle cx="182" cy="82" r="2" fill="#E8D5E0"/>
+                <!-- Ear -->
+                <path d="M140 50 L145 35 L155 55 Z" fill="#FDFCFB"/>
+                <path d="M143 50 L146 40 L152 53 Z" fill="#FFD5E5"/>
+                <!-- Horn -->
+                <path d="M150 45 L155 15 L160 45 Z" fill="#FFD700"/>
+                <path d="M152 42 L155 20 L155 42 Z" fill="#FFF3B0"/>
+                <!-- Mane -->
+                <path d="M130 45 Q115 50 120 70 Q110 75 115 95 Q105 100 110 115" stroke="#FF9BD2" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <path d="M135 50 Q122 55 125 72 Q115 78 118 95 Q110 102 113 112" stroke="#B388FF" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M138 55 Q128 60 130 75 Q122 82 124 95" stroke="#80DEEA" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <!-- Tail -->
+                <path d="M50 125 Q30 115 25 130 Q15 125 20 145 Q10 150 25 160" stroke="#FF9BD2" stroke-width="8" fill="none" stroke-linecap="round"/>
+                <path d="M52 128 Q35 120 32 133 Q22 130 27 148 Q20 155 30 158" stroke="#B388FF" stroke-width="6" fill="none" stroke-linecap="round"/>
+                <path d="M54 131 Q40 125 38 136 Q30 135 33 148" stroke="#80DEEA" stroke-width="4" fill="none" stroke-linecap="round"/>
+                <!-- Blush -->
+                <ellipse cx="170" cy="85" rx="6" ry="4" fill="#FFB5C5" opacity="0.5"/>
+                <!-- Sparkles -->
+                <text x="30" y="50" font-size="16" fill="#FFD700">✦</text>
+                <text x="170" y="35" font-size="12" fill="#FFD700">✦</text>
+                <text x="185" y="60" font-size="10" fill="#B388FF">✦</text>
+                <text x="20" y="100" font-size="14" fill="#80DEEA">✦</text>
+            </svg>
+            <p class="unicorn-text">Fantastiskt! Du klarade det utan ledtrådar!</p>
+        </div>
+        <h2 id="results-title">Bra jobbat!</h2>
         <div id="final-stars" class="final-stars"></div>
         <div id="star-summary" class="star-summary"></div>
         <div class="result-buttons">

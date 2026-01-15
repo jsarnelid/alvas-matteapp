@@ -28,6 +28,8 @@ const hintArea = document.getElementById('hint-area');
 
 const submitBtn = document.getElementById('submit-btn');
 const homeBtn = document.getElementById('home-btn');
+const unicornSurprise = document.getElementById('unicorn-surprise');
+const resultsTitle = document.getElementById('results-title');
 const finalStars = document.getElementById('final-stars');
 const starSummary = document.getElementById('star-summary');
 const playAgainBtn = document.getElementById('play-again-btn');
@@ -70,11 +72,27 @@ function generateProblem(difficulty) {
 
         case 4:
             // Mixed: randomly pick level 2 or 3
+            return Math.random() < 0.5 ? generateProblem(2) : generateProblem(3);
+
+        case 5:
+            // Easy multiplication: a × b where a*b <= 20, neither is 1
+            // Pick a from 2-10, then pick b from 2 to floor(20/a)
+            a = randomInt(2, 10);
+            b = randomInt(2, Math.max(2, Math.floor(20 / a)));
+            op = '×';
+            break;
+
+        case 6:
+            // Larger addition: one number 10-50, other 10-20
             if (Math.random() < 0.5) {
-                return generateProblem(2);
+                a = randomInt(10, 50);
+                b = randomInt(10, 20);
             } else {
-                return generateProblem(3);
+                a = randomInt(10, 20);
+                b = randomInt(10, 50);
             }
+            op = '+';
+            break;
 
         default:
             a = randomInt(1, 10);
@@ -88,8 +106,10 @@ function generateProblem(difficulty) {
 function getAnswer(problem) {
     if (problem.operator === '+') {
         return problem.a + problem.b;
-    } else {
+    } else if (problem.operator === '-') {
         return problem.a - problem.b;
+    } else if (problem.operator === '×') {
+        return problem.a * problem.b;
     }
 }
 
@@ -124,6 +144,17 @@ function updateStarsDisplay() {
 function showFinalStars() {
     finalStars.innerHTML = '';
 
+    // Check for unicorn surprise: level 6 with all gold stars
+    const showUnicorn = state.difficulty === 6 && state.goldStars === 10 && state.silverStars === 0;
+
+    if (showUnicorn) {
+        unicornSurprise.classList.remove('hidden');
+        resultsTitle.textContent = 'Wow!';
+    } else {
+        unicornSurprise.classList.add('hidden');
+        resultsTitle.textContent = 'Bra jobbat!';
+    }
+
     for (let i = 0; i < state.goldStars; i++) {
         const star = document.createElement('span');
         star.className = 'star gold';
@@ -155,6 +186,54 @@ function showHint() {
     const problem = state.currentProblem;
     hintArea.innerHTML = '';
 
+    // For large numbers (level 6), show base-10 blocks (tens as rectangles, ones as circles)
+    if (problem.a > 20 || problem.b > 20) {
+        const tensA = Math.floor(problem.a / 10);
+        const onesA = problem.a % 10;
+        const tensB = Math.floor(problem.b / 10);
+        const onesB = problem.b % 10;
+
+        // First number row
+        const row1 = document.createElement('div');
+        row1.className = 'hint-row';
+        for (let i = 0; i < tensA; i++) {
+            const block = document.createElement('div');
+            block.className = 'hint-ten-block';
+            block.textContent = '10';
+            row1.appendChild(block);
+        }
+        for (let i = 0; i < onesA; i++) {
+            const circle = document.createElement('div');
+            circle.className = 'hint-circle small';
+            row1.appendChild(circle);
+        }
+        hintArea.appendChild(row1);
+
+        // Plus sign
+        const opDiv = document.createElement('div');
+        opDiv.className = 'hint-operator';
+        opDiv.textContent = '+';
+        hintArea.appendChild(opDiv);
+
+        // Second number row
+        const row2 = document.createElement('div');
+        row2.className = 'hint-row';
+        for (let i = 0; i < tensB; i++) {
+            const block = document.createElement('div');
+            block.className = 'hint-ten-block';
+            block.textContent = '10';
+            row2.appendChild(block);
+        }
+        for (let i = 0; i < onesB; i++) {
+            const circle = document.createElement('div');
+            circle.className = 'hint-circle small';
+            row2.appendChild(circle);
+        }
+        hintArea.appendChild(row2);
+
+        return;
+    }
+
     if (problem.operator === '+') {
         // Addition: two rows with + between
         const row1 = document.createElement('div');
@@ -180,7 +259,7 @@ function showHint() {
         }
         hintArea.appendChild(row2);
 
-    } else {
+    } else if (problem.operator === '-') {
         // Subtraction: answer circles green, subtracted circles gray
         const answer = getAnswer(problem);
         const row = document.createElement('div');
@@ -201,6 +280,19 @@ function showHint() {
         }
 
         hintArea.appendChild(row);
+
+    } else if (problem.operator === '×') {
+        // Multiplication: show a rows of b circles each
+        for (let i = 0; i < problem.a; i++) {
+            const row = document.createElement('div');
+            row.className = 'hint-row';
+            for (let j = 0; j < problem.b; j++) {
+                const circle = document.createElement('div');
+                circle.className = 'hint-circle';
+                row.appendChild(circle);
+            }
+            hintArea.appendChild(row);
+        }
     }
 }
 
